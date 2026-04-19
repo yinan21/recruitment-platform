@@ -7,6 +7,21 @@ use Illuminate\Http\Request;
 use App\Models\Job;
 use App\Models\Company;
 use App\Livewire\Admin\EditJob;
+use Illuminate\Support\Facades\File;
+
+Route::get('/_debug/logs', function () {
+    abort_unless(app()->environment('local', 'production'), 403);
+
+    $path = storage_path('logs/laravel.log');
+
+    if (!File::exists($path)) {
+        return 'No log file found';
+    }
+
+    return response(
+        nl2br(e(File::get($path)))
+    );
+});
 
 Route::get('/', function () {
     if (auth()->check() && auth()->user()->isAdmin()) {
@@ -214,5 +229,6 @@ Route::get('/dashboard', function () {
 
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
 
 require __DIR__.'/auth.php';
