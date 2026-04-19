@@ -17,6 +17,9 @@ COPY . .
 # Install PHP dependencies
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
+RUN npm install
+RUN npm run build
+
 # Ensure SQLite database file exists
 RUN touch database/database.sqlite
 
