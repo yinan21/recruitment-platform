@@ -24,6 +24,10 @@ RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 RUN npm install
 RUN npm run build
 
+RUN php artisan config:clear \
+ && php artisan cache:clear \
+ && php artisan view:clear \
+ && php artisan route:clear
 # DEBUG: confirm manifest exists during build
 RUN ls -la public/build
 
