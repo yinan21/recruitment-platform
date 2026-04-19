@@ -42,4 +42,4 @@ RUN chmod -R 775 storage bootstrap/cache
 EXPOSE 10000
 
 # Start Laravel
-CMD php artisan migrate --seed --force && CMD php -S 0.0.0.0:10000 -t public
+CMD php artisan migrate --seed --force && php -S 0.0.0.0:10000 -t public
