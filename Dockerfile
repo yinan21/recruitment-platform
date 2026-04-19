@@ -1,27 +1,27 @@
 FROM php:8.3-cli
 
-# System dependencies (SQLite + Laravel essentials)
 RUN apt-get update && apt-get install -y \
     git curl unzip zip libsqlite3-dev libonig-dev libxml2-dev \
     && docker-php-ext-install pdo pdo_sqlite mbstring
 
-# Install Composer
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+# Node
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs
 
-# Set working directory
 WORKDIR /var/www
 
-# Copy project files
 COPY . .
 
-# Install PHP dependencies
+# ensure clean install
+RUN rm -rf node_modules public/build
+
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
-# Install Node.js + npm
-RUN apt-get update && apt-get install -y curl \
-    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y nodejs
+
 RUN npm install
 RUN npm run build
+
+# DEBUG: confirm manifest exists during build
+RUN ls -la public/build
 
 # Ensure SQLite database file exists
 RUN touch database/database.sqlite
