@@ -27,6 +27,7 @@ RUN npm run build
 RUN touch database/database.sqlite
 
 # Permissions (important for Laravel)
+RUN chown -R www-data:www-data storage bootstrap/cache || true
 RUN chmod -R 775 storage bootstrap/cache
 
 # Render exposes dynamic PORT
