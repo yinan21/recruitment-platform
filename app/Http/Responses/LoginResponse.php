@@ -21,6 +21,10 @@ class LoginResponse implements LoginResponseContract
             return redirect('/admin');
         }
 
+        if ($user && $user->isCompany()) {
+            return redirect()->route('company.dashboard');
+        }
+
         return redirect('/dashboard');
     }
 }

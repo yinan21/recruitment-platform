@@ -21,6 +21,8 @@
 
         <a href="{{ route('admin.jobs') }}" class="text-white d-block mb-2">Jobs</a>
 
+        <a href="{{ route('admin.jobs.pending-company') }}" class="text-white d-block mb-2">Pending employer jobs</a>
+
         <a href="{{ route('admin.companies') }}" class="text-white d-block mb-2">Companies</a>
 
         <a href="{{ route('admin.applications') }}" class="text-white d-block mb-2">Applications</a>

@@ -1,12 +1,14 @@
 <?php
 
+use App\Http\Controllers\Company\DashboardController as CompanyDashboardController;
+use App\Http\Controllers\Company\JobApplicationController;
+use App\Http\Controllers\Company\JobController as CompanyJobController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Models\Job;
 use App\Models\Company;
-use App\Livewire\Admin\EditJob;
 use Illuminate\Support\Facades\File;
 
 Route::get('/_debug/logs', function () {
@@ -59,6 +61,19 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::middleware(['auth', 'verified', 'role:company'])
+    ->prefix('company')
+    ->name('company.')
+    ->group(function () {
+        Route::get('/', CompanyDashboardController::class)->name('dashboard');
+
+        Route::get('/jobs/create', [CompanyJobController::class, 'create'])->name('jobs.create');
+        Route::post('/jobs', [CompanyJobController::class, 'store'])->name('jobs.store');
+        Route::get('/jobs/{job}/edit', [CompanyJobController::class, 'edit'])->name('jobs.edit');
+        Route::put('/jobs/{job}', [CompanyJobController::class, 'update'])->name('jobs.update');
+        Route::get('/jobs/{job}/applications', JobApplicationController::class)->name('jobs.applications');
+    });
+
 Route::middleware(['auth', 'role:admin'])
     ->prefix('admin')
     ->name('admin.')
@@ -67,6 +82,8 @@ Route::middleware(['auth', 'role:admin'])
         Route::view('/', 'admin.dashboard')->name('dashboard');
 
         Route::view('/jobs/create', 'admin.create-job')->name('jobs.create');
+
+        Route::view('/jobs/pending-employer', 'admin.pending-company-jobs')->name('jobs.pending-company');
 
         Route::get('/jobs/{job}', function (Job $job) {
             return view('admin.jobs.show', compact('job'));
@@ -202,6 +219,10 @@ Route::post('/jobs/{job}/apply', function (Request $request, Job $job) {
 Route::get('/dashboard', function () {
     if (auth()->user()->isAdmin()) {
         return redirect('/admin');
+    }
+
+    if (auth()->user()->isCompany()) {
+        return redirect()->route('company.dashboard');
     }
 
     if (auth()->user()->isCandidate()) {
