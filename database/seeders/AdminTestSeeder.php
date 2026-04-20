@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Company;
 use App\Models\Job;
+use App\Models\Application;
 use Illuminate\Support\Facades\Hash;
 
 class AdminTestSeeder extends Seeder
@@ -49,30 +50,138 @@ class AdminTestSeeder extends Seeder
             'name' => 'Startup Inc',
         ]);
 
+        // 🔹 Candidate users (for applications)
+        $candidate1 = User::create([
+            'name' => 'Alex Rivera',
+            'email' => 'candidate1@test.com',
+            'password' => Hash::make('password'),
+            'role' => 'candidate',
+            'is_active' => true,
+        ]);
+
+        $candidate2 = User::create([
+            'name' => 'Jordan Lee',
+            'email' => 'candidate2@test.com',
+            'password' => Hash::make('password'),
+            'role' => 'candidate',
+            'is_active' => true,
+        ]);
+
+        $candidate3 = User::create([
+            'name' => 'Sam Patel',
+            'email' => 'candidate3@test.com',
+            'password' => Hash::make('password'),
+            'role' => 'candidate',
+            'is_active' => true,
+        ]);
+
         // 🔹 Jobs for company 1
-        Job::create([
+        $jobLaravel = Job::create([
             'company_id' => $company1->id,
             'title' => 'Senior Laravel Developer',
-            'description' => 'Build scalable backend systems.',
+            'description' => 'Build scalable backend systems with Laravel, queues, and PostgreSQL.',
             'location' => 'Remote',
             'is_published' => true,
         ]);
 
-        Job::create([
+        $jobReact = Job::create([
             'company_id' => $company1->id,
             'title' => 'Frontend Engineer (React)',
-            'description' => 'Work on modern UI applications.',
+            'description' => 'Work on modern UI applications with React, TypeScript, and Tailwind.',
             'location' => 'London',
             'is_published' => false,
         ]);
 
+        $jobDevops = Job::create([
+            'company_id' => $company1->id,
+            'title' => 'DevOps Engineer',
+            'description' => 'Own CI/CD, Kubernetes clusters, and observability for production services.',
+            'location' => 'Hybrid — Manchester',
+            'is_published' => true,
+        ]);
+
+        $jobDesigner = Job::create([
+            'company_id' => $company1->id,
+            'title' => 'Product Designer',
+            'description' => 'End-to-end product design, user research, and design systems.',
+            'location' => 'Remote (EU)',
+            'is_published' => true,
+        ]);
+
+        $jobData = Job::create([
+            'company_id' => $company1->id,
+            'title' => 'Data Analyst',
+            'description' => 'SQL, dashboards, and partnering with product on metrics and experiments.',
+            'location' => 'Edinburgh',
+            'is_published' => false,
+        ]);
+
+        $jobPm = Job::create([
+            'company_id' => $company1->id,
+            'title' => 'Technical Product Manager',
+            'description' => 'Roadmaps, stakeholder alignment, and delivery with engineering squads.',
+            'location' => 'London',
+            'is_published' => true,
+        ]);
+
         // 🔹 Jobs for company 2 (inactive company)
-        Job::create([
+        $jobJunior = Job::create([
             'company_id' => $company2->id,
             'title' => 'Junior Developer',
-            'description' => 'Entry-level role.',
+            'description' => 'Entry-level full-stack role with mentorship.',
             'location' => 'Remote',
             'is_published' => false,
+        ]);
+
+        Job::create([
+            'company_id' => $company2->id,
+            'title' => 'Marketing Intern',
+            'description' => 'Support campaigns, content, and analytics for a small team.',
+            'location' => 'Berlin',
+            'is_published' => true,
+        ]);
+
+        // 🔹 Applications
+        Application::create([
+            'job_id' => $jobLaravel->id,
+            'candidate_id' => $candidate1->id,
+            'cover_letter' => 'Five years with PHP/Laravel; excited about your platform and API-first approach.',
+            'cv_path' => null,
+        ]);
+
+        Application::create([
+            'job_id' => $jobLaravel->id,
+            'candidate_id' => $candidate2->id,
+            'cover_letter' => 'Backend-focused engineer transitioning from Node; keen to deepen Laravel experience.',
+            'cv_path' => null,
+        ]);
+
+        Application::create([
+            'job_id' => $jobDevops->id,
+            'candidate_id' => $candidate2->id,
+            'cover_letter' => 'Strong AWS and Terraform background; comfortable on-call and improving SLOs.',
+            'cv_path' => null,
+        ]);
+
+        Application::create([
+            'job_id' => $jobReact->id,
+            'candidate_id' => $candidate3->id,
+            'cover_letter' => 'React/TS for three years; portfolio includes design-system work.',
+            'cv_path' => null,
+        ]);
+
+        Application::create([
+            'job_id' => $jobDesigner->id,
+            'candidate_id' => $candidate3->id,
+            'cover_letter' => 'Product designer with B2B SaaS experience; Figma and research-heavy process.',
+            'cv_path' => null,
+        ]);
+
+        Application::create([
+            'job_id' => $jobJunior->id,
+            'candidate_id' => $candidate1->id,
+            'cover_letter' => 'Recent bootcamp graduate looking for first commercial role with mentorship.',
+            'cv_path' => null,
         ]);
     }
 }
