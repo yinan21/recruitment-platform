@@ -17,6 +17,7 @@ class AdminTestSeeder extends Seeder
         $admin = User::create([
             'name' => 'Admin User',
             'email' => 'admin@test.com',
+            'mobile_no' => '+44 7700 900100',
             'password' => Hash::make('password'),
             'role' => 'admin',
             'is_active' => true,
@@ -26,6 +27,7 @@ class AdminTestSeeder extends Seeder
         $companyUser1 = User::create([
             'name' => 'Tech Corp User',
             'email' => 'company1@test.com',
+            'mobile_no' => '+44 7700 900101',
             'password' => Hash::make('password'),
             'role' => 'company',
             'is_active' => true,
@@ -40,6 +42,7 @@ class AdminTestSeeder extends Seeder
         $companyUser2 = User::create([
             'name' => 'Startup User',
             'email' => 'company2@test.com',
+            'mobile_no' => '+44 7700 900102',
             'password' => Hash::make('password'),
             'role' => 'company',
             'is_active' => false,
@@ -54,6 +57,7 @@ class AdminTestSeeder extends Seeder
         $candidate1 = User::create([
             'name' => 'Alex Rivera',
             'email' => 'candidate1@test.com',
+            'mobile_no' => '+44 7700 900201',
             'password' => Hash::make('password'),
             'role' => 'candidate',
             'is_active' => true,
@@ -62,6 +66,7 @@ class AdminTestSeeder extends Seeder
         $candidate2 = User::create([
             'name' => 'Jordan Lee',
             'email' => 'candidate2@test.com',
+            'mobile_no' => '+44 7700 900202',
             'password' => Hash::make('password'),
             'role' => 'candidate',
             'is_active' => true,
@@ -70,6 +75,7 @@ class AdminTestSeeder extends Seeder
         $candidate3 = User::create([
             'name' => 'Sam Patel',
             'email' => 'candidate3@test.com',
+            'mobile_no' => '+44 7700 900203',
             'password' => Hash::make('password'),
             'role' => 'candidate',
             'is_active' => true,

@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
+            'mobile_no' => '+44 7700 900001',
         ]);
         $this->call([
              AdminTestSeeder::class,
