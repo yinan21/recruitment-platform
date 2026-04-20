@@ -17,13 +17,15 @@ WORKDIR /var/www
 COPY . .
 
 # ensure clean install
-RUN chown -R www-data:www-data public/build
 RUN rm -rf node_modules public/build
 
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
 RUN npm install
 RUN npm run build
+RUN chown -R www-data:www-data /var/www
+RUN chmod -R 775 /var/www/storage /var/www/bootstrap/cache /var/www/public/build
+
 
 RUN php artisan config:clear \
  && php artisan cache:clear \
