@@ -25,5 +25,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind('path.public', function() {
         return base_path('public');
         });
+            if (config('app.env') === 'production' || config('app.env') === 'staging') {
+        URL::forceScheme('https');
+    }
     }
 }
