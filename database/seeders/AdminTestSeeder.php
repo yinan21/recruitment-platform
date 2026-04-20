@@ -29,7 +29,7 @@ class AdminTestSeeder extends Seeder
             'email' => 'admin@test.com',
             'mobile_no' => '+44 7700 900100',
             'password' => Hash::make('password'),
-            'role' => 'super_admin',
+            'role' => 'admin',
             'is_active' => true,
         ]);
 

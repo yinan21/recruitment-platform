@@ -1,58 +1,174 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Recruitment platform
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A Laravel job board where candidates search and apply, employers post listings (with admin approval), and staff manage companies, jobs, and applications.
 
-## About Laravel
+**Live demo:** [https://recruitment-platform-eck9.onrender.com/](https://recruitment-platform-eck9.onrender.com/)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Stack and packages
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+| Layer | Technology |
+| --- | --- |
+| Framework | [Laravel](https://laravel.com/docs) **13.x** (PHP **^8.3**) |
+| Auth UI | [Laravel Breeze](https://laravel.com/docs/starter-kits#laravel-breeze) (Blade + Tailwind) |
+| Admin interactivity | [Livewire](https://livewire.laravel.com/) **4.x** |
+| Front-end build | [Vite](https://vitejs.dev/) **8.x**, [laravel-vite-plugin](https://github.com/laravel/vite-plugin) |
+| CSS (Breeze) | [Tailwind CSS](https://tailwindcss.com/) **3.x**, [@tailwindcss/forms](https://github.com/tailwindlabs/tailwindcss-forms) |
+| JS (Breeze) | [Alpine.js](https://alpinejs.dev/) **3.x** |
+| HTTP client | [Axios](https://axios-http.com/) |
+| Admin / candidate dashboards | [Bootstrap 5](https://getbootstrap.com/) (CDN in Blade layouts) |
+| Dev | PHPUnit, Laravel Pint, Laravel Pail, Faker, Collision |
 
-## Learning Laravel
+**Composer highlights:** `laravel/framework`, `livewire/livewire`, `laravel/tinker`  
+**NPM highlights:** `vite`, `tailwindcss`, `alpinejs`, `concurrently`
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Requirements
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+- PHP **8.3+** with common extensions (mbstring, openssl, pdo, tokenizer, xml, ctype, json, bcmath)
+- [Composer](https://getcomposer.org/)
+- [Node.js](https://nodejs.org/) **18+** and npm
 
-## Agentic Development
+---
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## Install (local)
+
+1. **Clone and enter the project**
+
+   ```bash
+   git clone <repository-url>
+   cd recruitment-platform
+   ```
+
+2. **Environment**
+
+   ```bash
+   copy .env.example .env   # Windows; use cp on macOS/Linux
+   php artisan key:generate
+   ```
+
+   Configure `.env`: `APP_URL`, `DB_*` (SQLite file or MySQL/PostgreSQL), `MAIL_*` if you need email (e.g. job-returned-to-pending notices).
+
+3. **Database**
+
+   ```bash
+   # SQLite (example)
+   type nul > database\database.sqlite   # Windows; touch database/database.sqlite on Unix
+
+   php artisan migrate
+   ```
+
+4. **Optional: demo data** (test users, companies, jobs, applications)
+
+   ```bash
+   php artisan db:seed
+   ```
+
+   See [Test accounts](#test-accounts-after-dbseed) below.
+
+5. **Assets**
+
+   ```bash
+   composer install
+   npm install
+   npm run build          # production assets
+   # or during development:
+   npm run dev
+   ```
+
+6. **Storage link** (if you serve uploaded CVs from `public/storage`)
+
+   ```bash
+   php artisan storage:link
+   ```
+
+7. **Run the app**
+
+   ```bash
+   php artisan serve
+   ```
+
+   Visit `http://127.0.0.1:8000` (or your `APP_URL`).
+
+**One-shot setup** (after `.env` and DB exist):
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+composer run setup
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+---
 
-## Contributing
+## Usage by role
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+After login, users are sent to the right area automatically (`/admin`, `/company`, or `/dashboard` for candidates).
 
-## Code of Conduct
+### Candidate (`role: candidate`)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- **Register:** `/register` — standard candidate signup.
+- **Dashboard:** `/dashboard` — sidebar: **Find job**, **My applications**, **Change profile**.
+- **Public job board:** `/` — search by keyword and location; only **published** jobs are listed.
+- **Job detail & apply:** `/jobs/{id}` — apply with optional cover letter and CV (logged-in candidates only).
 
-## Security Vulnerabilities
+### Company / employer (`role: company`)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- **Register:** `/register/company` — creates user + company profile.
+- **Dashboard:** `/company` — **My jobs**, **Applications** (all listings), **Post a job**, **Profile**.
+- New jobs are **pending** (`is_published = false`) until staff publishes them.
+- Editing a **published** job and changing title, description, location, or salary sets it back to **pending**; admins are notified by email (if mail is configured).
+
+### Admin (`role: admin`)
+
+- Same back-office access as super admin **except** managing other staff accounts.
+- **Panel:** `/admin` — dashboard counts, jobs, companies, applications, create job/company, **Pending employer jobs** queue (`/admin/jobs/pending-employer`).
+- Uses Livewire tables where configured (e.g. jobs list, pending queue).
+
+### Super admin (`role: super_admin`)
+
+- Everything **admin** can do, plus:
+- **Manage admin users:** `/admin/staff` — list users with roles `admin` / `super_admin`, add accounts, delete others (cannot delete self or the last super admin).
+- Dashboard card **Manage admin users** and sidebar **Admin staff** (super admin only).
+
+---
+
+## Test accounts (after `db:seed`)
+
+Password for all seeded test users: **`password`**
+
+| Role | Email | Notes |
+| --- | --- | --- |
+| Super admin | `superadmin@test.com` | Staff management |
+| Admin | `admin@test.com` | Back office, no `/admin/staff` |
+| Company | `company1@test.com`, `company2@test.com` | Linked to Tech Corp / Startup Inc |
+| Candidate | `candidate1@test.com`, `candidate2@test.com`, `candidate3@test.com` | Can apply to published jobs |
+
+`DatabaseSeeder` also creates `test@example.com` (default **candidate** role) via the factory.
+
+---
+
+## Tests
+
+```bash
+composer run test
+# or
+php artisan test
+```
+
+---
+
+## Deployment notes (e.g. Render)
+
+The public demo runs at [https://recruitment-platform-eck9.onrender.com/](https://recruitment-platform-eck9.onrender.com/). For production:
+
+- Set `APP_ENV=production`, `APP_DEBUG=false`, strong `APP_KEY`.
+- Run `php artisan migrate --force` on deploy.
+- Run `npm run build` (or build assets in CI) and `php artisan config:cache` / `route:cache` as needed.
+- Configure `MAIL_*` for notifications.
+- Use a persistent database and file storage (or S3) for uploads.
+
+---
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This application builds on Laravel and related packages; see each package’s license (Laravel is [MIT](https://opensource.org/licenses/MIT)).
