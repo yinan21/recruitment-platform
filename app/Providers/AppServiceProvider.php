@@ -22,5 +22,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->app->singleton(LoginResponse::class, CustomLoginResponse::class);
+        $this->app->bind('path.public', function() {
+        return base_path('public');
+        });
     }
 }
