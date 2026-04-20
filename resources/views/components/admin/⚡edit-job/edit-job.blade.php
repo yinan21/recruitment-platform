@@ -35,6 +35,15 @@
                class="form-control">
     </div>
 
+    {{-- SALARY --}}
+    <div class="mb-3">
+        <label>Salary</label>
+        <input type="text"
+               wire:model.live="salary"
+               class="form-control"
+               placeholder="e.g. £60,000 – £75,000">
+    </div>
+
     {{-- PUBLISH --}}
     <div class="form-check mb-3">
         <input type="checkbox"

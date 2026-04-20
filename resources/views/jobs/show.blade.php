@@ -4,7 +4,7 @@
             <div>
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">{{ $job->title }}</h2>
                 <p class="text-sm text-gray-500 mt-1">
-                    {{ $job->company->name }} · {{ $job->location ?: 'Remote / Flexible' }}
+                    {{ $job->company->name }} · {{ $job->location ?: 'Remote / Flexible' }}@if($job->salary) · {{ $job->salary }} @endif
                 </p>
             </div>
             <div class="flex items-center gap-2">
@@ -50,6 +50,10 @@
                             <div class="rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800">
                                 <h4 class="text-sm font-semibold text-gray-700 dark:text-gray-200">Location</h4>
                                 <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">{{ $job->location ?: 'Remote / Flexible' }}</p>
+                            </div>
+                            <div class="rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800 md:col-span-2">
+                                <h4 class="text-sm font-semibold text-gray-700 dark:text-gray-200">Salary</h4>
+                                <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">{{ $job->salary ?: 'Not specified' }}</p>
                             </div>
                         </div>
 

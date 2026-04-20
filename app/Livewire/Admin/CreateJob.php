@@ -11,6 +11,7 @@ class CreateJob extends Component
     public $title;
     public $description;
     public $location;
+    public $salary;
     public $company_id;
     public $is_published = false;
 
@@ -20,6 +21,7 @@ class CreateJob extends Component
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'location' => 'nullable|string|max:255',
+            'salary' => 'nullable|string|max:255',
             'company_id' => 'required|exists:companies,id',
         ]);
 
@@ -27,6 +29,7 @@ class CreateJob extends Component
             'title' => $this->title,
             'description' => $this->description,
             'location' => $this->location,
+            'salary' => filled($this->salary) ? trim($this->salary) : null,
             'company_id' => $this->company_id,
             'is_published' => $this->is_published,
         ]);

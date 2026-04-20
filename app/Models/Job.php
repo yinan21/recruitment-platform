@@ -8,7 +8,7 @@ class Job extends Model
 {
     public $timestamps = false;
 
-    protected $fillable = ['title', 'description', 'location', 'company_id', 'is_published'];
+    protected $fillable = ['title', 'description', 'location', 'salary', 'company_id', 'is_published'];
 
     public function company() {
       return $this->belongsTo(Company::class);

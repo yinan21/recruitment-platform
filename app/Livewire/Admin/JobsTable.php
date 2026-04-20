@@ -38,7 +38,11 @@ class JobsTable extends Component
         $jobs = Job::query()
             ->with('company')
             ->withCount('applications')
-            ->where('title', 'like', '%' . $this->search . '%')
+            ->where(function ($q) {
+                $term = '%' . $this->search . '%';
+                $q->where('title', 'like', $term)
+                    ->orWhere('salary', 'like', $term);
+            })
             ->latest()
             ->paginate(10);
 

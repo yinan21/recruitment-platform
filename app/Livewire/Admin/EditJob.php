@@ -11,6 +11,7 @@ class EditJob extends Component
     public $title;
     public $description;
     public $location;
+    public $salary;
     public $is_published = false;
 
     public function mount(Job $job)
@@ -21,6 +22,7 @@ class EditJob extends Component
         $this->title = $job->title;
         $this->description = $job->description;
         $this->location = $job->location;
+        $this->salary = $job->salary;
         $this->is_published = $job->is_published;
     }
 
@@ -30,12 +32,14 @@ class EditJob extends Component
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'location' => 'nullable|string|max:255',
+            'salary' => 'nullable|string|max:255',
         ]);
 
         $this->job->update([
             'title' => $this->title,
             'description' => $this->description,
             'location' => $this->location,
+            'salary' => filled($this->salary) ? trim($this->salary) : null,
             'is_published' => $this->is_published,
         ]);
 

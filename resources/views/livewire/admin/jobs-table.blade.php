@@ -8,6 +8,7 @@
             <tr>
                 <th>Title</th>
                 <th>Company</th>
+                <th>Salary</th>
                 <th>Status</th>
                 <th>Applications</th>
                 <th>Action</th>
@@ -34,6 +35,8 @@
                             -
                         @endif
                     </td>
+
+                    <td>{{ $job->salary ?: '—' }}</td>
 
                     <td>
                         @if($job->is_published)

@@ -29,6 +29,12 @@
             @error('location') <div class="invalid-feedback">{{ $message }}</div> @enderror
         </div>
 
+        <div class="mb-3">
+            <label for="salary" class="form-label">Salary</label>
+            <input id="salary" type="text" class="form-control @error('salary') is-invalid @enderror" wire:model.defer="salary" placeholder="e.g. £60,000 – £75,000">
+            @error('salary') <div class="invalid-feedback">{{ $message }}</div> @enderror
+        </div>
+
         <div class="form-check mb-4">
             <input id="is_published" type="checkbox" class="form-check-input" wire:model="is_published">
             <label for="is_published" class="form-check-label">Published</label>

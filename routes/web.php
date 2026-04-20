@@ -36,7 +36,8 @@ Route::get('/', function () {
         $keyword = request('keyword');
         $query->where(function ($q) use ($keyword) {
             $q->where('title', 'like', '%' . $keyword . '%')
-                ->orWhere('description', 'like', '%' . $keyword . '%');
+                ->orWhere('description', 'like', '%' . $keyword . '%')
+                ->orWhere('salary', 'like', '%' . $keyword . '%');
         });
     }
 
@@ -85,6 +86,7 @@ Route::middleware(['auth', 'role:admin'])
                 'title' => 'required|string|max:255',
                 'description' => 'required|string',
                 'location' => 'nullable|string|max:255',
+                'salary' => 'nullable|string|max:255',
                 'is_published' => 'nullable|boolean',
             ]);
 
@@ -92,6 +94,7 @@ Route::middleware(['auth', 'role:admin'])
                 'title' => $validated['title'],
                 'description' => $validated['description'],
                 'location' => $validated['location'] ?? null,
+                'salary' => filled($validated['salary'] ?? null) ? trim($validated['salary']) : null,
                 'is_published' => $request->boolean('is_published'),
             ]);
 
@@ -214,7 +217,8 @@ Route::get('/dashboard', function () {
                 $keyword = request('keyword');
                 $query->where(function ($q) use ($keyword) {
                     $q->where('title', 'like', '%' . $keyword . '%')
-                        ->orWhere('description', 'like', '%' . $keyword . '%');
+                        ->orWhere('description', 'like', '%' . $keyword . '%')
+                        ->orWhere('salary', 'like', '%' . $keyword . '%');
                 });
             }
 

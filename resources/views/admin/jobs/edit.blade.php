@@ -53,6 +53,17 @@
         @error('location') <small class="text-danger">{{ $message }}</small> @enderror
     </div>
 
+    {{-- SALARY --}}
+    <div class="mb-3">
+        <label>Salary</label>
+        <input type="text" name="salary"
+               class="form-control"
+               value="{{ old('salary', $job->salary) }}"
+               placeholder="e.g. £60,000 – £75,000 or Competitive">
+
+        @error('salary') <small class="text-danger">{{ $message }}</small> @enderror
+    </div>
+
     {{-- PUBLISHED --}}
     <div class="mb-3 form-check">
         <input type="checkbox" name="is_published" id="is_published" value="1" class="form-check-input"

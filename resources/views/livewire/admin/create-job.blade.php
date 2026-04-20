@@ -30,6 +30,12 @@
         </div>
 
         <div class="mb-3">
+            <label for="salary" class="form-label">Salary</label>
+            <input id="salary" type="text" class="form-control @error('salary') is-invalid @enderror" wire:model.defer="salary" placeholder="e.g. £60,000 – £75,000">
+            @error('salary') <div class="invalid-feedback">{{ $message }}</div> @enderror
+        </div>
+
+        <div class="mb-3">
             <label for="company_id" class="form-label">Company</label>
             <select id="company_id" class="form-control @error('company_id') is-invalid @enderror" wire:model.defer="company_id">
                 <option value="">Select a company</option>

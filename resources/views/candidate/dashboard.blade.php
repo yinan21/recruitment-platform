@@ -20,7 +20,7 @@
                             <div class="d-flex justify-content-between">
                                 <div>
                                     <h5><a href="{{ route('jobs.show', $job) }}" class="text-decoration-none">{{ $job->title }}</a></h5>
-                                    <p class="text-muted">{{ $job->company->name }} · {{ $job->location ?: 'Remote / Flexible' }}</p>
+                                    <p class="text-muted">{{ $job->company->name }} · {{ $job->location ?: 'Remote / Flexible' }}@if($job->salary) · {{ $job->salary }} @endif</p>
                                     <p class="text-truncate">{{ strip_tags($job->description) }}</p>
                                 </div>
                                 <a href="{{ route('jobs.show', $job) }}" class="btn btn-primary">View Details</a>
@@ -49,7 +49,7 @@
                             <div class="d-flex justify-content-between">
                                 <div>
                                     <h5><a href="{{ route('jobs.show', $application->job) }}" class="text-decoration-none">{{ $application->job->title }}</a></h5>
-                                    <p class="text-muted">{{ $application->job->company->name }} · {{ $application->job->location ?: 'Remote / Flexible' }}</p>
+                                    <p class="text-muted">{{ $application->job->company->name }} · {{ $application->job->location ?: 'Remote / Flexible' }}@if($application->job->salary) · {{ $application->job->salary }} @endif</p>
                                     @if($application->cover_letter)
                                         <p>Cover letter: {{ Str::limit(strip_tags($application->cover_letter), 100) }}</p>
                                     @endif

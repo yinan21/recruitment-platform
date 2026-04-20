@@ -87,6 +87,7 @@ class AdminTestSeeder extends Seeder
             'title' => 'Senior Laravel Developer',
             'description' => 'Build scalable backend systems with Laravel, queues, and PostgreSQL.',
             'location' => 'Remote',
+            'salary' => '£70,000 – £85,000',
             'is_published' => true,
         ]);
 
@@ -95,6 +96,7 @@ class AdminTestSeeder extends Seeder
             'title' => 'Frontend Engineer (React)',
             'description' => 'Work on modern UI applications with React, TypeScript, and Tailwind.',
             'location' => 'London',
+            'salary' => null,
             'is_published' => false,
         ]);
 
@@ -103,6 +105,7 @@ class AdminTestSeeder extends Seeder
             'title' => 'DevOps Engineer',
             'description' => 'Own CI/CD, Kubernetes clusters, and observability for production services.',
             'location' => 'Hybrid — Manchester',
+            'salary' => '£65,000 – £80,000',
             'is_published' => true,
         ]);
 
@@ -111,6 +114,7 @@ class AdminTestSeeder extends Seeder
             'title' => 'Product Designer',
             'description' => 'End-to-end product design, user research, and design systems.',
             'location' => 'Remote (EU)',
+            'salary' => '€65,000 – €78,000',
             'is_published' => true,
         ]);
 
@@ -119,6 +123,7 @@ class AdminTestSeeder extends Seeder
             'title' => 'Data Analyst',
             'description' => 'SQL, dashboards, and partnering with product on metrics and experiments.',
             'location' => 'Edinburgh',
+            'salary' => '£42,000 – £52,000',
             'is_published' => false,
         ]);
 
@@ -127,6 +132,7 @@ class AdminTestSeeder extends Seeder
             'title' => 'Technical Product Manager',
             'description' => 'Roadmaps, stakeholder alignment, and delivery with engineering squads.',
             'location' => 'London',
+            'salary' => '£75,000 – £95,000',
             'is_published' => true,
         ]);
 
@@ -136,6 +142,7 @@ class AdminTestSeeder extends Seeder
             'title' => 'Junior Developer',
             'description' => 'Entry-level full-stack role with mentorship.',
             'location' => 'Remote',
+            'salary' => '£32,000 – £38,000',
             'is_published' => false,
         ]);
 
@@ -144,6 +151,7 @@ class AdminTestSeeder extends Seeder
             'title' => 'Marketing Intern',
             'description' => 'Support campaigns, content, and analytics for a small team.',
             'location' => 'Berlin',
+            'salary' => '€2,000 / month',
             'is_published' => true,
         ]);
 

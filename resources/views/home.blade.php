@@ -91,10 +91,14 @@
                                     </h2>
                                 </div>
 
-                                <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-3">
+                                <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-gray-600 dark:text-gray-400 mb-3">
                                     <span class="font-medium">{{ $job->company->name }}</span>
-                                    <span class="mx-2">•</span>
-                                    <span>{{ $job->location }}</span>
+                                    <span aria-hidden="true">•</span>
+                                    <span>{{ $job->location ?: 'Location TBC' }}</span>
+                                    @if($job->salary)
+                                        <span aria-hidden="true">•</span>
+                                        <span>{{ $job->salary }}</span>
+                                    @endif
                                 </div>
 
                                 <p class="text-gray-700 dark:text-gray-300 mb-4">

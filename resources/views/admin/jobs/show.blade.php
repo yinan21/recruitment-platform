@@ -16,6 +16,7 @@
                 <p><strong>Description:</strong></p>
                 <p>{{ $job->description }}</p>
                 <p><strong>Location:</strong> {{ $job->location ?: 'Not specified' }}</p>
+                <p><strong>Salary:</strong> {{ $job->salary ?: 'Not specified' }}</p>
                 <p><strong>Status:</strong>
                     @if($job->is_published)
                         <span class="badge bg-success">Published</span>
