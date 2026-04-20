@@ -100,21 +100,6 @@
                                 <p class="text-gray-700 dark:text-gray-300 mb-4">
                                     {{ Str::limit($job->description, 100) }}
                                 </p>
-
-                                <div class="flex justify-between items-center">
-                                    <a href="{{ route('jobs.show', $job) }}" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-medium">
-                                        View Details →
-                                    </a>
-                                    @if($job->is_published)
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
-                                            Published
-                                        </span>
-                                    @else
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">
-                                            Draft
-                                        </span>
-                                    @endif
-                                </div>
                             </div>
                         @empty
                             <div class="text-center py-12">
