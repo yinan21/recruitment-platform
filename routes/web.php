@@ -134,7 +134,11 @@ Route::middleware(['auth', 'role:admin'])
         })->name('companies.update');
 
         Route::get('/applications', function () {
-            $applications = \App\Models\Application::with('job.company', 'candidate')->latest()->paginate(20);
+            $applications = \App\Models\Application::query()
+                ->with(['job.company', 'candidate'])
+                ->latest('created_at')
+                ->paginate(30);
+
             return view('admin.applications', compact('applications'));
         })->name('applications');
     });
