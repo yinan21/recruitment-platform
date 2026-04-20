@@ -27,6 +27,10 @@
 
         <a href="{{ route('admin.applications') }}" class="text-white d-block mb-2">Applications</a>
 
+        @if(auth()->user()->isSuperAdmin())
+            <a href="{{ route('admin.staff.index') }}" class="text-white d-block mb-2">Admin staff</a>
+        @endif
+
         <a href="{{ route('admin.jobs.create') }}" class="text-white d-block mb-2">Create Job</a>
 
         <a href="{{ route('admin.companies.create') }}" class="text-white d-block mb-2">Create Company</a>

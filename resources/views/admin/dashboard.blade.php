@@ -33,6 +33,17 @@
         </a>
     </div>
 
+    @if(auth()->user()->isSuperAdmin())
+        <div class="col-md-4 mt-3">
+            <a href="{{ route('admin.staff.index') }}" class="text-decoration-none">
+                <div class="card p-3 border-warning">
+                    <h5>Manage admin users</h5>
+                    <p class="text-muted small mb-0">List, add, or remove administrator accounts.</p>
+                </div>
+            </a>
+        </div>
+    @endif
+
 </div>
 
 @endsection

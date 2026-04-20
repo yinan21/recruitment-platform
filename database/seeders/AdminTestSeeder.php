@@ -13,6 +13,16 @@ class AdminTestSeeder extends Seeder
 {
     public function run(): void
     {
+        // 🔹 Super admin (can manage other admin accounts)
+        User::create([
+            'name' => 'Super Admin',
+            'email' => 'superadmin@test.com',
+            'mobile_no' => '+44 7700 900099',
+            'password' => Hash::make('password'),
+            'role' => 'super_admin',
+            'is_active' => true,
+        ]);
+
         // 🔹 Admin user
         $admin = User::create([
             'name' => 'Admin User',

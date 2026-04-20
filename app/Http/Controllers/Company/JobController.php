@@ -121,7 +121,7 @@ class JobController extends Controller
 
     private function notifyJobReturnedToPending(Job $job): void
     {
-        foreach (User::query()->where('role', 'admin')->whereNotNull('email')->cursor() as $admin) {
+        foreach (User::query()->whereIn('role', ['admin', 'super_admin'])->whereNotNull('email')->cursor() as $admin) {
             Mail::to($admin->email)->send(new JobReturnedToPendingMail($job, true));
         }
 

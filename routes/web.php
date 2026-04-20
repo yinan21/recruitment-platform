@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Company\DashboardController as CompanyDashboardController;
 use App\Http\Controllers\Company\JobApplicationController;
+use App\Http\Controllers\Admin\AdminStaffController;
 use App\Http\Controllers\Company\JobController as CompanyJobController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -74,7 +75,7 @@ Route::middleware(['auth', 'verified', 'role:company'])
         Route::get('/jobs/{job}/applications', JobApplicationController::class)->name('jobs.applications');
     });
 
-Route::middleware(['auth', 'role:admin'])
+Route::middleware(['auth', 'admin_access'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
@@ -161,6 +162,12 @@ Route::middleware(['auth', 'role:admin'])
 
             return view('admin.applications', compact('applications'));
         })->name('applications');
+
+        Route::middleware('super_admin')->group(function () {
+            Route::get('/staff', [AdminStaffController::class, 'index'])->name('staff.index');
+            Route::post('/staff', [AdminStaffController::class, 'store'])->name('staff.store');
+            Route::delete('/staff/{user}', [AdminStaffController::class, 'destroy'])->name('staff.destroy');
+        });
     });
 
 Route::get('/jobs/{job}', function (Job $job) {
