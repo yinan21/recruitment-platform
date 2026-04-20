@@ -17,6 +17,7 @@ WORKDIR /var/www
 COPY . .
 
 # ensure clean install
+RUN chown -R www-data:www-data public/build
 RUN rm -rf node_modules public/build
 
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
