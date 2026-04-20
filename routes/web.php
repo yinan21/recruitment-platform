@@ -92,7 +92,7 @@ Route::middleware(['auth', 'role:admin'])
                 'title' => $validated['title'],
                 'description' => $validated['description'],
                 'location' => $validated['location'] ?? null,
-                'is_published' => $request->has('is_published'),
+                'is_published' => $request->boolean('is_published'),
             ]);
 
             return redirect()
